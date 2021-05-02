@@ -1,16 +1,34 @@
 class Venue
 
+attr_reader :name,
+            :capacity,
+            :patrons
+
   def initialize(name, capacity)
     @name = name
-    @capacity = 4
-
+    @capacity = capacity
+    @patrons = []
   end
 
-  def name
-    @name
+  def add_patron(patron)
+    @patrons << patron
   end
 
-  def capacity
-    @capacity = 4
+  def yell_at_patrons
+    @patrons.map do |patron|
+      patron.upcase
+    end
   end
-end 
+
+  def over_capacity?
+    if @patrons.length > @capacity
+      true
+    else false
+    end
+  end
+
+  def kick_out
+    @patrons.shift until @patrons.length == @capacity
+    "YOU'RE OUTTA HERE"
+  end
+end
